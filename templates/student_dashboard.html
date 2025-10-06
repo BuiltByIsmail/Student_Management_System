@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+   {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-container">
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% endwith %}
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="dashboard-logo" width="80">
+    <ul>
+      <li><a onclick="showSection('profile')">👤 Profile</a></li>
+      <li><a onclick="showSection('courses')">📘 Courses</a></li>
+      <li><a onclick="showSection('results')">📊 Results</a></li>
+      <li><a onclick="showSection('payments')">💳 Payments</a></li>
+      <hr style="margin: 1rem 0; border-color: #444;" />
+
+      <!-- Student Dropdown -->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle">🎓 Students ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="{{ url_for('main.list_students') }}" target="_blank">📋 List</a></li>
+          <li><a href="{{ url_for('main.add_student') }}" target="_blank">➕ Add </a></li>
+        </ul>
+      </li>
+
+    </ul>
+    </ul>
+      <a href="{{ url_for('auth.logout') }}" class="logout" onclick=" return confirmLogout(event)">📤 Logout</a>
+    </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div id="profile" class="section active">
+      <div class="header">
+        <div class="welcome">
+          <h2>Welcome back!</h2>
+          <p><strong> {{ student.full_name }}</strong> {{ student.matric_no }}</p>
+        </div>
+        <div class="profile-img">
+          <img src="{{ url_for('static', filename='images/Logo.png') }}" alt="Profile Image" width="60" height="60">
+        </div>
+      </div>
+      <!-- Profile Summary Section -->
+      <div class="profile-summary">
+        <div class="summary-card">
+          <h3>Enrolled Courses</h3>
+          <p>8</p>
+        </div>
+        <div class="summary-card">
+          <h3>CGPA</h3>
+          <p>4.38</p>
+        </div>
+        <div class="summary-card">
+          <h3>Outstanding Fees</h3>
+          <p>₦20,000</p>
+        </div>
+      </div>
+
+      <!-- Personal Details Section -->
+      <div class="personal-details">
+        <h2>Personal Details</h2>
+        <table class="details-table">
+          <tr>
+            <th>Matric No</th>
+            <td>{{ student.matric_no }}</td>
+          </tr>
+          <tr>
+            <th>Full Name</th>
+            <td>{{ student.full_name }}</td>
+          </tr>
+          <tr>
+            <th>Department</th>
+            <td>{{ student.department }}</td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{ student.email }}</td>
+          </tr>
+          <tr>
+            <th>Phone</th>
+            <td>{{ student.phone }}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="bottom-acc">
+        <div class="announcement">
+          <div class="header-announcement">
+            <h2>Latest Notifications</h2>
+            <p id="new">3 New</p>
+          </div>
+          <div class="header1">
+            <h3>Semister Results Released</h3>
+            <p>Published 2hrs ago</p>
+            <a href="#">Learn More!</a>
+          </div>
+          <div class="header1">
+            <h3>Inter-Faculty Match</h3>
+            <p>Published 6hrs ago</p>
+            <a href="#">Learn More!</a>
+          </div>
+          <div class="header1">
+            <h3>Notice of the UTME/DE screening</h3>
+            <p>Published 2 WEEKS ago</p>
+            <a href="#">Learn More!</a>
+          </div>
+        </div>
+        <div class="lecture">
+          <h2>Todays lecture</h2>
+          <div class="lectures">
+            <div class="lecture1">
+              <div class="lecture-title">
+                <h3>IFT-205</h3>
+                <p>Mr Titus</p>
+              </div>
+              <p>9:00 - 11:00</p>
+            </div>
+            <div class="lecture1">
+              <div class="lecture-title">
+                <h3>CSC 202</h3>
+                <p>Mr Luwani</p>
+              </div>
+              <p>11:00 - 1:00</p>
+            </div>
+            <div class="lecture1">
+              <div class="lecture-title">
+                <h3>INS 204</h3>
+                <p>Mr Adamu</p>
+              </div>
+              <p>2:00 - 4:00</p>
+            </div>
+          </div>
+        </div>
+      </div>  
+    
+    </div>
+    
+    <div id="courses" class="section">
+    <h2 class="section-title">My Courses</h2>
+
+    <!-- Summary -->
+    <div class="course-summary">
+      <div class="summary-box">
+        <h3>Total Units</h3>
+        <p id="total-units">{{ total_units }}</p>
+        </div>
+    <div class="summary-box">
+      <h3>Core Units</h3>
+      <p id="core-units">{{ core_units }}</p>
+    </div>
+    <div class="summary-box">
+      <h3>Electives</h3>
+      <p id="elective-units">{{ elective_units }}</p>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <div class="course-search">
+    <input type="text" id="search" placeholder="Search course by code or title...">
+  </div>
+
+  <!-- Table -->
+  <table class="courses-table">
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Title</th>
+        <th>Unit</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for course in courses %}
+      <tr>
+        <td>{{ course.course_code }}</td>
+        <td>{{ course.course_name }}</td>
+        <td>{{ course.credit_unit }}</td>
+        <td>
+          {% if course.credit_unit >= 3 %}
+            <span class="badge core">Core</span>
+          {% else %}
+            <span class="badge elective">Elective</span>
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ url_for('update_course', course_id=course.id) }}" class="btn-update">Update</a>
+          <a href="{{ url_for('delete_course', course_id=course.id) }}" class="btn-drop"
+             onclick="return confirm('Are you sure you want to delete this course?')">Delete</a>
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="5">No courses found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+    <div id="results" class="section">
+      <h2>1st Semester Results</h2>
+        <canvas id="resultsChart"></canvas>
+
+        <!-- GPA Display -->
+        <p id="gpaResult" class="gpa-box"></p>
+
+        <!-- Transcript Table -->
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Course Code</th>
+              <th>Score</th>
+              <th>Grade</th>
+              <th>Credit Unit</th>
+              <th>Weighted Points</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTableBody"></tbody>
+        </table>
+       <!-- Modal Popup -->
+        <div class="modal" id="courseModal">
+          <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modalCourse"></h3>
+            <canvas id="courseChart"></canvas>
+            <p id="courseRemarks"></p>
+         </div>
+      </div>  
+      
+    </div>
+
+    <div id="payments" class="section">
+      <h2>💳 Payments</h2>
+
+      <!-- Payment Summary -->
+      <div class="payment-summary">
+        <div class="summary-card">
+          <h3>Total Fees</h3>
+          <p>₦150,000</p>
+        </div>
+        <div class="summary-card">
+          <h3>Paid</h3>
+          <p>₦100,000</p>
+        </div>
+        <div class="summary-card">
+          <h3>Balance</h3>
+          <p>₦50,000</p>
+        </div>
+      </div>
+
+      <!-- Payment History Table -->
+      <div class="payment-history">
+        <h3>Payment History</h3>
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Reference</th>
+              <th>Method</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+           <!-- Existing rows -->
+            <tr>
+              <td>2024-01-15</td>
+              <td>REF12345</td>
+              <td>Bank Transfer</td>
+              <td>₦50,000</td>
+              <td>Successful</td>
+            </tr>
+            <tr>
+              <td>2025-03-15</td>
+              <td>REF12346</td>
+              <td>Cash</td>
+              <td>₦50,000</td>
+              <td>Successful</td>
+            </tr>
+            <tr>
+              <td>2025-05-02</td>
+              <td>REF12409</td>
+              <td>Cheaque</td>
+              <td>₦2,000</td>
+              <td>Successful</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <!-- Make Payment Button -->
+      <div class="make-payment">
+        <button class="pay-btn" id="openPaymentModal">Make a Payment</button>
+      </div>
+    </div>
+
+    <!-- Payment Modal -->
+      <div class="modal" id="paymentModal">
+        <div class="modal-content">
+          <span class="close-btn" id="closePaymentModal">&times;</span>
+          <h3>Make a Payment</h3>
+
+          <form class="payment-form">
+            <label for="amount">Amount (₦)</label>
+            <input type="number" id="amount" placeholder="Enter amount" required>
+
+            <label for="method">Payment Method</label>
+            <select id="method" required>
+              <option value="">Select Method</option>
+              <option value="card">Card Payment</option>
+              <option value="transfer">Bank Transfer</option>
+              <option value="ussd">USSD</option>
+            </select>
+
+            <button type="submit" class="pay-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  
+</body>
+</html>

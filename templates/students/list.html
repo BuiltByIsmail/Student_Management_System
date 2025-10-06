@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students List - Campus Tech</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="table-container">
+  <!-- 🔍 Search Bar -->
+  <div class="table-controls">
+    <input type="text" id="searchInput" placeholder="Search students...">
+  </div>
+
+  <table class="table" id="studentTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Department</th>
+        <th>Email</th>
+        <th>phone</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for student in students %}
+      <tr>
+        <td data-label="ID">{{ student.id }}</td>
+        <td data-label="Full Name">{{ student.full_name }}</td>
+        <td data-label="Department">{{ student.department }}</td>
+        <td data-label="Email">{{ student.email }}</td>
+        <td data-label="phone">{{ student.phone }}</td>
+        <td data-label="Actions">
+          <a href="{{ url_for('main.update_student', student_id=student.id) }}">
+            <button class="action-btn btn-edit">Edit</button>
+          </a>
+          <a href="{{ url_for('main.delete_student', student_id=student.id) }}">
+            <button class="action-btn btn-delete">Delete</button>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- 📄 Pagination Controls -->
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<!-- JS for search + pagination -->
+<script>
+  const rowsPerPage = 8; // 👈 change per page limit
+  const table = document.getElementById("studentTable");
+  const tbody = table.querySelector("tbody");
+  const rows = tbody.querySelectorAll("tr");
+  const pagination = document.getElementById("pagination");
+  const searchInput = document.getElementById("searchInput");
+
+  let currentPage = 1;
+
+  function displayRows() {
+    const start = (currentPage - 1) * rowsPerPage;
+    const end = start + rowsPerPage;
+
+    rows.forEach((row, index) => {
+      row.style.display = (index >= start && index < end) ? "" : "none";
+    });
+
+    setupPagination();
+  }
+
+  function setupPagination() {
+    pagination.innerHTML = "";
+    const pageCount = Math.ceil(rows.length / rowsPerPage);
+
+    for (let i = 1; i <= pageCount; i++) {
+      const btn = document.createElement("button");
+      btn.innerText = i;
+      btn.classList.add("page-btn");
+      if (i === currentPage) btn.classList.add("active");
+
+      btn.addEventListener("click", () => {
+        currentPage = i;
+        displayRows();
+      });
+
+      pagination.appendChild(btn);
+    }
+  }
+
+  // 🔍 Search Functionality
+  searchInput.addEventListener("keyup", function () {
+    const query = this.value.toLowerCase();
+    rows.forEach(row => {
+      const rowText = row.innerText.toLowerCase();
+      row.style.display = rowText.includes(query) ? "" : "none";
+    });
+  });
+
+  // Initialize
+  displayRows();
+</script>
+
+
+</body>
+</html>

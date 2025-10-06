@@ -1,0 +1,210 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+:root {
+    --background: #0f172a;
+    --primary: #fff;
+    --secondary-color: #00ffea;
+    --accent-color: #001d3d;
+    --text-light: #fff;
+    --tex-dark: #111;
+    --shadow: 0px 4px 6px rgb(0, 0, 0, 0.2);
+    --border: 10px;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--background);
+  filter: blur(0);
+}
+
+#particles-js {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* stays behind */
+}
+
+/* Centered card */
+.login-wrapper {
+  width: 100%;
+  max-width: 500px;
+  padding: 1.2rem;
+  animation: fadeIn 1s .1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: scale(0.8);}
+  to {opacity: 1; transform: scale(1);}
+}
+
+.login-box {
+  background: var(--text-light);
+  filter: drop-shadow(var(--shadow));
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .2);
+}
+
+.login-box .welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 1.5rem;
+
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #1864ab;
+}
+
+/* Floating label style */
+.float {
+  position: relative;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.float input {
+  width: 100%;
+  padding: 12px 0 8px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.float input:focus {
+  border-bottom-color: #4dabf7;
+}
+
+.float .label {
+  position: absolute;
+  left: 0;
+  top: 12px;
+  color: #888;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.float input:focus + .label,
+.float input:not(:placeholder-shown) + .label {
+  top: -8px;
+  font-size: 0.8rem;
+  color: #1864ab;
+}
+
+/* Extras */
+.extras {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.2rem;
+  font-size: 0.9rem;
+}
+
+.extras .checkbox input {
+  margin-right: 6px;
+}
+
+.extras .forgot {
+  color: #1864ab;
+  text-decoration: none;
+}
+
+.extras .forgot:hover {
+  text-decoration: underline;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1864ab;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.login-btn:hover {
+  background: #0b3d75;
+}
+
+/* Register text */
+.register-text {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.register-text a {
+  color: #1864ab;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.alert {
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.alert-success { background: #d1e7dd; color: #0f5132; }
+.alert-danger { background: #f8d7da; color: #842029; }
+.alert-warning { background: #fff3cd; color: #664d03; }
+.alert-info { background: #cff4fc; color: #055160; }
+
+.alert-dismissible {
+  position: relative;
+  padding-right: 2.5rem;
+}
+.alert-dismissible .btn-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+  from { 
+    opacity: 1; 
+  }
+  to {
+    opacity: 0; display: none; }
+}
+
+.alert.fade-out {
+  animation: fadeOut 2s forwards 2s;
+}
+

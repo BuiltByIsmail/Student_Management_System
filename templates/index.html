@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Management System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}?v=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+   integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous"
+   referrerpolicy="no-referrer"
+  />
+  <!-- AOS CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+  <!-- AOS JS -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+</head>
+<body>
+  <div class="hero">
+    <!-- Particle Background -->
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="nav">
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png')}}" alt="logo" width="80">
+        <p>Campus Tech</p>
+      </div>
+      <div class="nav-list">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#courses">Course</a>
+        <a href="#gallery">Gallery</a>
+        <a href="{{ url_for('main.login') }}" target="_blank"><span>Login</span></a>
+      </div>
+    </nav>
+
+    <!-- Hero Content -->
+    <div class="hero-content" id="home">
+      <div class="hero-welcome">
+        <h1>Welcome <span> to Campus Tech</span></h1>
+        <p>Manage students, attendance, results, and fees — all in one
+           sleek interface.
+        </p>
+        <a href="{{ url_for('main.add_student') }}" class="cta-btn" target="_blank">Get Started</a>
+      </div>
+      <!-- Lottie Animation -->
+      <div id="lottie-hero"></div>
+    </div>
+  </div>
+  <section class="about-section" id="about" data-aos="fade-up" data-aos-delay="200">
+      <div class="container">
+        <div id="lottie-about" data-aos="zoom-in" data-aos-delay="300"></div>
+        <div class="about">
+          <h2 data-aos="fade-up">About Campus Tech</h2>
+          <p class="slogan" data-aos="fade-right">Innovating Education, Empowering Campuses</p>
+          <p class="about-p" data-aos="fade-left">Campus Tech is a modern solution designed to transform how institutions manage their daily operations.
+            From student records, attendance and results to payments and reporting, Campus Tech provide a seamless digital
+          experience for schools, colleges and Universities by combinig innovation with simplicity. </p>
+        </div>
+      </div>
+  </section>
+  <section class="our-vision" data-aos="fade-up" >
+    <div class="card" data-aos="fade-right">
+      <h2>Our Vision</h2>
+      <p>To deliver innovative, user-friendly, and reliable tools that
+        empower educators, students, and administrators to achieve excellence.
+      </p>
+    </div>
+    <div class="card" data-aos="fade-up">
+      <h2>Our Core Values</h2>
+      <ul>
+        <li><strong>Innovation:</strong> Building smarter, modern solutions.</li>
+        <li><strong>Integrity:</strong> Trust and transparency in all we do.</li>
+        <li><strong>Excellence:</strong> Commitment to quality and impact.</li>
+        <li><strong>Accessibility:</strong> Making technology easy and affordable for all campuses</li>
+      </ul>
+    </div>
+  </section>
+  <section class="courses-container" id="courses">
+    <h1>Our Courses</h1>
+    <p class="intro">
+      At <strong>Campus Tech</strong>, we offer hands-on, practical courses designed
+      to prepare you for the fast-evolving world of technology and innovation.
+    </p>
+
+    <div class="course-grid" data-aos="fade-in" data-aos-delay="200">
+      <div class="course-card" data-aos="fade-left">
+       <div id="web-dev"></div>
+
+        <h2>Web Development</h2>
+        <p>Learn HTML, CSS, JavaScript, and modern frameworks to build responsive, interactive websites.</p>
+      </div>
+
+      <div class="course-card" id="data" data-aos="fade-right">
+        <div id="data-science"></div>
+
+        <h2>Data Science</h2>
+        <p>Master Python, machine learning, and data visualization to uncover insights and drive decisions.</p>
+      </div>
+
+      <div class="course-card" data-aos="fade-left">
+        <div id="cloud-comp"></div>
+
+        <h2>Cloud Computing</h2>
+        <p>Understand cloud infrastructure and security to deploy and manage applications at scale.</p>
+      </div>
+
+      <div class="course-card" data-aos="fade-right">
+        <div id="cyb"></div>
+
+        <h2>Cyber Security</h2>
+        <p>Develop the skills to secure networks, detect threats, and protect critical information systems.</p>
+      </div>
+    </div>
+  </section>
+  <section class="gallery-section" id="gallery" data-aos="fade-up">
+    <div class="container">
+      <h1>Gallery</h1>
+      <p class="intro">Explore our vibrant campus life through these snapshots.</p>
+      <div class="gallery-grid">
+        <img src="{{ url_for('static', filename='images/image.jpg') }}" alt="Gallery Image 1">
+        <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Gallery Image 2">
+        <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Gallery Image 3">
+        <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Gallery Image 4">
+        <img src="{{ url_for('static', filename='images/image2.png') }}" alt="Gallery Image 5">
+        <img src="{{ url_for('static', filename='images/image1.png') }}" alt="Gallery Image 6">
+      </div>
+    </div>
+  </section>
+  <section class="footer">
+    <div class="footer-content">
+      <div class="flex">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" width="100">
+        <h2>Campus Tech</h2>
+        <div class="social-icons">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="flex links">
+        <h2>Usefull links</h2>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Course</a>
+        <a href="#">Gallery</a>
+        <a href="#">Login</a>
+      </div>
+      <div class="flex support">
+        <h2>Support</h2>
+        <input type="text" class="input" placeholder="Your suggestion..">
+        <button type="submit">Submit</button>
+      </div>
+    </div>
+    <p>© 2025 Campus Tech. All rights reserved.</p>
+  </section>
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-container">
+        {% for category, message in messages %}
+          <div class="flash flash-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='libs/particles.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lottie.js')}}"></script>
+  <script src="{{ url_for('static', filename='libs/lottie.min.js')}}"></script>
+
+  <!-- Lottie Setup -->
+  <script>
+
+    AOS.init({
+    once: false,
+    mirror: true,
+    duration: 1000,
+    easing: 'ease-in-out'
+  });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("lottie-hero"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/Designer.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("lottie-about"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/about-us.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("web-dev"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/Coding.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("data-science"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/Data Analysis.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("cloud-comp"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/Book loading.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      lottie.loadAnimation({
+        container: document.getElementById("cyb"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "{{ url_for('static', filename='animations/DATA SECURITY.json') }}" 
+        // <-- Put your Lottie JSON file inside static/animations/
+      });
+    });
+
+    const hamburger = document.getElementById("hamburger");
+  const navList = document.querySelector(".nav-list");
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    navList.classList.toggle("active");
+  });
+  </script>
+</body>
+</html>

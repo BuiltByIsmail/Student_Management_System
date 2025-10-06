@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="alert success">Login successful! Redirecting...</div>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "{{ url_for('main.dashboard') }}";
+    }, 2000); // wait 2s before redirect
+  </script>
+{% endblock %}

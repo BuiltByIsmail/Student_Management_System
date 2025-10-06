@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+  <div id="particles-js"></div>
+  <div class="login-wrapper">
+    <div class="login-box">
+      <div class="welcome">
+        <img src="{{ url_for('static', filename='images/image3.jpg') }}" alt="image3" width="150" class="avatar">
+        <h2>Student Login</h2>
+    </div>
+    <form method="POST" action="{{ url_for('auth.login') }}">
+    <!-- Matric No -->
+        <label class="float">
+          <input type="text" name="matric_no" required placeholder=" ">
+          <span class="label">Matric No</span>
+        </label>
+
+        <!-- Password -->
+        <label class="float">
+          <input type="password" name="password" required placeholder=" ">
+          <span class="label">Password</span>
+        </label>
+
+        <!-- Remember Me + Forgot -->
+        <div class="extras">
+          <label class="checkbox">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="#" class="forgot">Forgot Password?</a>
+        </div>
+
+        <!-- Login Button -->
+        <button class="login-btn" type="submit">Login</button>
+      </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+
+      <!-- Register link -->
+      <p class="register-text">
+        Don’t have an account? <a href="{{ url_for('main.register') }}">Register</a>
+      </p>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='libs/particles.min.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/lottie.js')}}"></script>
+  <script src="{{ url_for('static', filename='libs/lottie.min.js')}}"></script>
+  <script>
+  // Auto dismiss flash messages after 3s
+  document.addEventListener("DOMContentLoaded", () => {
+    const alerts = document.querySelectorAll(".alert");
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        alert.classList.add("fade-out");
+        setTimeout(() => alert.remove(), 1000); // remove after fade
+      }, 3000); // 3 seconds
+    });
+  });
+
+  const alertBox = document.querySelector(".alert.success");
+  if (alertBox) {
+    setTimeout(() => {
+      window.location.href = "{{ url_for('main.dashboard') }}";
+    }, 2000);
+  }
+
+</script>
+
+</body>
+</html>

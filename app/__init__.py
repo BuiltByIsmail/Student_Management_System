@@ -1,10 +1,10 @@
 from flask import Flask
-from .extensions import db,  login_manager
+from .extensions import db, login_manager
 
 from .routes import main
 from .auth import auth   # 👈 import auth blueprint
 
-def create_app(static_folder="static", template_folder="templates"):
+def create_app():
     app = Flask(__name__, instance_relative_config=True,
                 template_folder="../templates",
                 static_folder="../static")
